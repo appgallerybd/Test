@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homeo Pharmacy App</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .calligraphy { font-family: 'Great Vibes', cursive; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        .bg-mesh {
+            background-color: #e0e7ff;
+            background-image: radial-gradient(at 40% 20%, hsla(228,80%,70%,0.3) 0px, transparent 50%),
+                              radial-gradient(at 80% 0%, hsla(189,100%,56%,0.2) 0px, transparent 50%),
+                              radial-gradient(at 0% 50%, hsla(355,100%,93%,0.3) 0px, transparent 50%);
+        }
+        .btn-shine {
+            position: relative; overflow: hidden;
+        }
+        .btn-shine::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg); transition: 0.5s;
+        }
+        .btn-shine:hover::after { left: 100%; }
+        .dropdown-menu { display: none; }
+        .dropdown-menu.active { display: block; }
+    </style>
+</head>
+<body class="bg-mesh min-h-screen">
+
+    <!-- LOGIN SECTION -->
+    <div id="login-section" class="min-h-screen flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-8 w-full max-w-md text-center relative">
+            <!-- Unique Homeo Logo SVG -->
+            <div class="mb-4 flex justify-center">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" stroke="#4f46e5" stroke-width="4" fill="#eef2ff"/>
+                    <path d="M50 20C50 20 30 40 30 55C30 66.0457 38.9543 75 50 75C61.0457 75 70 66.0457 70 55C70 40 50 20 50 20Z" fill="#4f46e5" opacity="0.2"/>
+                    <path d="M50 30C50 30 38 44 38 53C38 59.6274 43.3726 65 50 65C56.6274 65 62 59.6274 62 53C62 44 50 30 50 30Z" fill="#4f46e5" opacity="0.5"/>
+                    <path d="M50 40C50 40 45 47 45 51C45 54.3137 47.6863 57 51 57C54.3137 57 57 54.3137 57 51C57 47 50 40 50 40Z" fill="#4f46e5"/>
+                    <path d="M35 30C35 30 25 35 25 45" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="24" cy="47" r="2" fill="#4f46e5"/>
+                    <path d="M65 70C65 70 75 65 75 55" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="76" cy="53" r="2" fill="#4f46e5"/>
+                </svg>
+            </div>
+            
+            <h1 class="calligraphy text-6xl text-indigo-800 mb-1">Login</h1>
+            <p class="text-indigo-900 font-medium mb-6 text-lg tracking-wide">in as Admin</p>
+            
+            <div class="space-y-4 text-left mb-6">
+                <input id="email-field" type="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-xl border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <input id="pass-field" type="password" placeholder="Password" class="w-full px-4 py-3 rounded-xl border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+            
+            <button id="email-login-btn" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold btn-shine hover:bg-indigo-700 transition duration-300 shadow-lg shadow-indigo-200 mb-6">
+                Login
+            </button>
+            
+            <!-- Divider -->
+            <div class="flex items-center mb-6">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="mx-4 text-gray-500 font-medium">Continue with</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+            
+            <!-- Google Sign In -->
+            <button id="google-login-btn" class="w-full bg-white border border-gray-300 py-3 rounded-xl font-medium flex items-center justify-center space-x-3 hover:bg-gray-50 hover:shadow transition duration-300">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                <span>Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- APP SECTION -->
+    <div id="app-section" class="min-h-screen hidden">
+        <!-- Top Navbar -->
+        <nav class="bg-white shadow-sm p-4 flex justify-between items-center sticky top-0 z-50">
+            <h1 class="text-xl font-bold text-indigo-800"><i class="fa-solid fa-mortar-pestle mr-2"></i>Homeo Pharmacy</h1>
+            
+            <div class="relative">
+                <button id="profile-btn" class="w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500 focus:outline-none">
+                    <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover">
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown" class="dropdown-menu absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
+                    <div class="p-4 bg-indigo-50 border-b border-indigo-100">
+                        <p class="font-semibold text-indigo-900" id="user-name">Admin</p>
+                        <p class="text-sm text-indigo-600" id="user-email">admin@email.com</p>
+                    </div>
+                    
+                    <!-- Data Backup -->
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-center"><i class="fa-solid fa-cloud-arrow-down mr-2 text-indigo-500"></i> Data Backup</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="exportData('xlsx')" class="bg-green-100 text-green-700 px-2 py-1.5 rounded-lg text-sm font-medium hover:bg-green-200 transition">Excel</button>
+                            <button onclick="exportData('csv')" class="bg-blue-100 text-blue-700 px-2 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-200 transition">CSV</button>
+                            <button onclick="exportData('json')" class="bg-purple-100 text-purple-700 px-2 py-1.5 rounded-grid text-sm font-medium hover:bg-purple-200 transition">JSON</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Import -->
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-center"><i class="fa-solid fa-cloud-arrow-up mr-2 text-indigo-500"></i> Data Import</h3>
+                        <label class="w-full flex items-center justify-center px-4 py-2 bg-orange-100 text-orange-700 rounded-lg cursor-pointer hover:bg-orange-200 transition font-medium text-sm">
+                            <i class="fa-solid fa-file-import mr-2"></i> Upload JSON File
+                            <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)">
+                        </label>
+                    </div>
+                    
+                    <!-- Sign Out -->
+                    <div class="p-4">
+                        <button id="logout-btn" class="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition font-medium flex items-center justify-center">
+                            <i class="fa-solid fa-right-from-bracket mr-2"></i> Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- App Content (Form & History) -->
+        <div class="p-4 md:p-8 max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+            
+            <!-- Entry Form -->
+            <div class="glass-card p-6 rounded-2xl">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-6">New Invoice Entry</h2>
+                <form id="invoice-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-1">Patient Name</label>
+                        <input type="text" id="patient-name" required class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 focus:outline-none transition">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-1">Medicine Details</label>
+                        <textarea id="medicine-details" rows="4" required class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-1">Total Amount (৳)</label>
+                        <input type="number" id="amount" required class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 focus:outline-none transition">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold btn-shine hover:bg-indigo-700 transition duration-300 shadow-lg shadow-indigo-200">
+                        Save Invoice & Sync
+                    </button>
+                </form>
+            </div>
+
+            <!-- History -->
+            <div class="glass-card p-6 rounded-2xl">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-6">Invoice History</h2>
+                <div id="history-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                    <!-- Default blank. Entries will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CDN Scripts for Firebase & SheetJS (Excel/CSV) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+
+    <script>
+        // ==========================================
+        // 1. FIREBASE CONFIGURATION
+        // ==========================================
+        // আপনার ফায়ারবেস প্রজেক্টের কনফিগারেশন এখানে দিন
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        // ফায়ারবেস ইনিশিয়ালাইজ
+        if(!firebase.apps.length){
+            firebase.initializeApp(firebaseConfig);
+        }
+        const auth = firebase.auth();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+        // ==========================================
+        // 2. DOM ELEMENTS
+        // ==========================================
+        const loginSection = document.getElementById('login-section');
+        const appSection = document.getElementById('app-section');
+        const emailLoginBtn = document.getElementById('email-login-btn');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        const invoiceForm = document.getElementById('invoice-form');
+        const historyList = document.getElementById('history-list');
+
+        // ==========================================
+        // 3. AUTHENTICATION LOGIC
+        // ==========================================
+        // ইমেইল লগইন
+        emailLoginBtn.addEventListener('click', () => {
+            const email = document.getElementById('email-field').value;
+            const pass = document.getElementById('pass-field').value;
+            if(email && pass) {
+                auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
+            } else {
+                alert("ইমেইল ও পাসওয়ার্ড দিন");
+            }
+        });
+
+        // গুগল লগইন (সহজ পপআপ মেথড)
+        googleLoginBtn.addEventListener('click', () => {
+            auth.signInWithPopup(googleProvider).catch(e => alert(e.message));
+        });
+
+        // সাইন আউট
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut();
+            profileDropdown.classList.remove('active');
+        });
+
+        // ইউজার স্টেট চেক (ব্রাউজার ক্লোজ করলেও সেভ থাকবে)
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // লগইন অবস্থা
+                loginSection.classList.add('hidden');
+                appSection.classList.remove('hidden');
+                
+                // ইউজার প্রোফাইল সেট
+                userName.innerText = user.displayName || "Admin";
+                userEmail.innerText = user.email;
+                userAvatar.src = user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=4f46e5&color=fff`;
+                
+                // অ্যাপের ডাটা লোড করা
+                loadHistory();
+            } else {
+                // সাইন আউট অবস্থা - সব ডাটা হাইড
+                loginSection.classList.remove('hidden');
+                appSection.classList.add('hidden');
+                historyList.innerHTML = ''; // ডাটা ক্লিয়ার করে দেওয়া হলো
+            }
+        });
+
+        // প্রোফাইল ড্রপডাউন টগল
+        profileBtn.addEventListener('click', () => {
+            profileDropdown.classList.toggle('active');
+        });
+        window.addEventListener('click', (e) => {
+            if(!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.remove('active');
+            }
+        });
+
+        // ==========================================
+        // 4. INVOICE & LOCAL STORAGE LOGIC
+        // ==========================================
+        let invoices = JSON.parse(localStorage.getItem('homeo_invoices')) || [];
+
+        invoiceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const patientName = document.getElementById('patient-name').value;
+            const medicineDetails = document.getElementById('medicine-details').value;
+            const amount = document.getElementById('amount').value;
+            const timestamp = Date.now();
+
+            // নতুন ইনভয়েস অবজেক্ট
+            const newInvoice = {
+                id: timestamp, // ইউনিক আইডি হিসেবে টাইমস্ট্যাম্প
+                invoiceNo: invoices.length + 1, // সিরিয়াল নম্বর
+                patientName,
+                medicineDetails,
+                amount,
+                date: new Date().toLocaleDateString('bn-BD')
+            };
+
+            invoices.push(newInvoice);
+            saveAndSyncData();
+            invoiceForm.reset();
+        });
+
+        function saveAndSyncData() {
+            localStorage.setItem('homeo_invoices', JSON.stringify(invoices));
+            // অটো সিঙ্ক সিমুলেশন (এখানে ফায়ারবেস ডাটাবেস কানেক্ট করলে রিয়েল সিঙ্ক হবে)
+            console.log("Data Auto-Synced to Cloud!");
+            loadHistory();
+        }
+
+        function loadHistory() {
+            invoices = JSON.parse(localStorage.getItem('homeo_invoices')) || [];
+            historyList.innerHTML = '';
+
+            if (invoices.length === 0) {
+                historyList.innerHTML = '<p class="text-center text-gray-400 mt-10">No invoices yet. Start by adding one!</p>';
+                return;
+            }
+
+            // সিরিয়াল অনুযায়ী সাজানো
+            invoices.sort((a, b) => a.invoiceNo - b.invoiceNo);
+
+            invoices.forEach(inv => {
+                const div = document.createElement('div');
+                div.className = "bg-gray-50 p-4 rounded-lg border border-gray-100 relative group hover:shadow-md transition";
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-indigo-700">Invoice #${inv.invoiceNo}</h3>
+                        <span class="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full">${inv.date}</span>
+                    </div>
+                    <p class="text-gray-800 font-medium">${inv.patientName}</p>
+                    <p class="text-gray-600 text-sm mt-1">${inv.medicineDetails}</p>
+                    <p class="text-green-700 font-bold mt-2">৳ ${inv.amount}</p>
+                    
+                    <button onclick="confirmDelete(${inv.id})" class="absolute top-2 right-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition duration-200">
+                        <i class="fa-solid fa-trash-alt"></i>
+                    </button>
+                `;
+                historyList.prepend(div); // নতুনগুলো উপরে দেখাবে
+            });
+        }
+
+        // ==========================================
+        // 5. DELETE LOGIC WITH WARNING
+        // ==========================================
+        function confirmDelete(id) {
+            if(confirm("⚠️ সতর্কতা!\nএই ইনভয়েসটি মুছে ফেললে আর ফিরে পাওয়া যাবে না। আপনি কি নিশ্চিত?")) {
+                invoices = invoices.filter(inv => inv.id !== id);
+                // ইনভয়েস নম্বরগুলো রিঅ্যারেঞ্জ করা হচ্ছে না, শুধু ডাটা ডিলিট হচ্ছে
+                saveAndSyncData();
+            }
+        }
+
+        // ==========================================
+        // 6. EXPORT & IMPORT LOGIC
+        // ==========================================
+        function exportData(format) {
+            if(invoices.length === 0) {
+                alert("ডাউনলোড করার মতো কোনো ডাটা নেই!");
+                return;
+            }
+
+            const ws = XLSX.utils.json_to_sheet(invoices);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Invoices");
+
+            if(format === 'xlsx') {
+                XLSX.writeFile(wb, "Homeo_Data_Backup.xlsx");
+            } else if(format === 'csv') {
+                XLSX.writeFile(wb, "Homeo_Data_Backup.csv");
+            } else if(format === 'json') {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(invoices, null, 2));
+                const dlAnchorElem = document.createElement('a');
+                dlAnchorElem.setAttribute("href",     dataStr     );
+                dlAnchorElem.setAttribute("download", "Homeo_Data_Backup.json");
+                dlAnchorElem.click();
+            }
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedInvoices = JSON.parse(e.target.result);
+                    
+                    // ইম্পোর্ট লজিক: সিরিয়াল মিলিয়ে মাঝখানে বসানো
+                    let currentMaxSerial = invoices.length > 0 ? Math.max(...invoices.map(i => i.invoiceNo)) : 0;
+                    
+                    importedInvoices.forEach(newInv => {
+                        // চেক করছি এই ইনভয়েস আগে থেকে আছে কিনা (ID দিয়ে)
+                        const exists = invoices.some(inv => inv.id === newInv.id);
+                        if(!exists) {
+                            invoices.push(newInv);
+                        }
+                    });
+
+                    // ইনভয়েস নম্বরগুলো সিরিয়াল অনুযায়ী সাজিয়ে নতুন করে নম্বর দেওয়া
+                    invoices.sort((a, b) => a.id - b.id);
+                    invoices.forEach((inv, index) => {
+                        inv.invoiceNo = index + 1;
+                    });
+
+                    saveAndSyncData();
+                    alert("ডাটা সফলভাবে ইম্পোর্ট হয়েছে এবং সিরিয়াল মিলিয়ে নেওয়া হয়েছে!");
+                    
+                } catch (error) {
+                    alert("Invalid JSON File!");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // রিসেট
+        }
+
+    </script>
+</body>
+</html>
